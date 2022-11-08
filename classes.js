@@ -29,13 +29,25 @@ console.log("This is example result: ", fred.task());
 // ++++ YOUR ASSIGNMENT STARTS HERE +++++
 
   
-/*
-  === GameObject ===
-  * createdAt
-  * name
-  * dimensions (These represent the character's size in the video game)
-  * destroy() // A method that returns: `${this.name} was removed from the game.`
-*/
+ /*
+  === GameObject === 
+  *createdAt
+  *name 
+  *dimensions (These represent the character's size in the video game)  
+  *destroy () // A method that returns: `${this.name} was removed from the game.`
+  */
+
+  class GameObject {
+  constructor(attributes) {
+    this.createdAt= attributes.createdAt;
+    this.name = attributes.name;
+    this.dimensions = attributes.dimensions;
+  }
+    destroy() {
+      return `${this.name} was removed from the game`;
+    }
+
+}
 
 /*
   === CharacterStats ===
@@ -44,6 +56,15 @@ console.log("This is example result: ", fred.task());
   * should inherit destroy() from GameObject's method
 */
 
+class CharacterStats extends GameObject {
+  constructor(attributes){
+    super(attributes);
+    this.healthPoints = attributes.healthPoints;
+  }
+  takeDamage(){
+    return   `${this.name}  took damage`;
+  }
+}
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
   * team
@@ -53,16 +74,26 @@ console.log("This is example result: ", fred.task());
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
- 
+class Humanoid extends CharacterStats{
+  constructor(attributes){
+    super(attributes);
+    this.team = attributes.team;
+    this.weapons = attributes.weapons;
+    this.language = attributes.language;
+  }
+  greet(){
+    return   ` ${this.name} offers a greening in  ${this.language}`;
+  }
+}
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
-// Test you work by un-commenting these 3 objects and the list of console logs below:
+// Test your work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -123,7 +154,7 @@ console.log("This is example result: ", fred.task());
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villain and Hero class that inherit from the Humanoid class.  
